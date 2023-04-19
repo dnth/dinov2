@@ -13,21 +13,12 @@ class xyz_model(torch.nn.Module):
         return ff
     
 
+### Change your model here .dinov2_vits14() / .dinov2_vitb14() / .dinov2_vitl14() /.dinov2_vitg14() 
 model = hubconf.dinov2_vits14()
 mm = xyz_model(model).to('cpu')
 
-
-# Set the model to evaluation mode
 mm.eval()
-
-# Generate some input data
 input_data = torch.randn(1, 3, 224, 224).to('cpu')
-
-# Pass the input data through the model
 output = mm(input_data)
-
-# Print the output
-# print(output)
-
 
 torch.onnx.export(mm, input_data, 'model.onnx', input_names = ['input'])
